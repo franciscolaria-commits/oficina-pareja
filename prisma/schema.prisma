@@ -10,7 +10,7 @@ datasource db {
 model Event {
   id          Int      @id @default(autoincrement())
   title       String
-  owner       String   // 'fran', 'novia', 'compartido'
+  owner       String   // 'fran', 'jooo', 'compartido'
   startTime   DateTime
   endTime     DateTime
   description String?
@@ -21,6 +21,6 @@ model TimelineMemory {
   imageUrl    String   
   memoryDate  DateTime 
   description String?
-  uploadedBy  String   // 'fran' o 'novia'
+  uploadedBy  String   // 'fran' o 'jooo'
   createdAt   DateTime @default(now()) 
 }

@@ -23,6 +23,7 @@ export interface AppEvent {
     end: Date;
     owner: string;
     description?: string | null;
+    allDay?: boolean; // Agregado
 }
 
 interface Props {
@@ -84,7 +85,24 @@ export default function CalendarWrapper({ events }: Props) {
             setModalOpen(false);
         }
     };
+    // Selector de colores basado en el dueño
+    const eventStyleGetter = (event: AppEvent) => {
+        let backgroundColor = '#3b82f6'; // Azul por defecto (compartido)
+        if (event.owner === 'fran') backgroundColor = '#10b981'; // Verde
+        if (event.owner === 'novia') backgroundColor = '#ec4899'; // Rosa
+        if (event.owner === 'feriado') backgroundColor = '#ef4444'; // Rojo
 
+        return {
+            style: {
+                backgroundColor,
+                borderRadius: '4px',
+                opacity: 0.9,
+                color: 'white',
+                border: '0px',
+                display: 'block',
+            }
+        };
+    };
     return (
         <div className="h-[80vh] w-full bg-white text-black p-4 rounded-md shadow-md relative">
             <Calendar
@@ -94,6 +112,7 @@ export default function CalendarWrapper({ events }: Props) {
                 endAccessor="end"
                 selectable // Habilita la selección interactiva
                 onSelectSlot={handleSelectSlot}
+                eventPropGetter={eventStyleGetter}
                 onSelectEvent={handleSelectEvent}
                 culture="es"
                 messages={{

@@ -1,26 +1,52 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@layer base {
+  .font-storybook-serif {
+    font-family: var(--font-storybook-serif), serif;
+  }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  .font-tierno-sans {
+    font-family: var(--font-tierno-sans), sans-serif;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.rbc-calendar {
+  font-family: var(--font-tierno-sans), sans-serif;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+}
+
+.rbc-header {
+  background-color: #ecfdf5;
+  color: #064e3b;
+  padding: 8px 0;
+  font-weight: 700;
+}
+
+.rbc-toolbar button {
+  color: #064e3b;
+  border: 1px solid #a7f3d0 !important;
+  background: white;
+  border-radius: 20px !important;
+  padding: 4px 12px !important;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+}
+
+.rbc-toolbar button:hover,
+.rbc-toolbar button:active,
+.rbc-toolbar button.rbc-active {
+  background-color: #a7f3d0 !important;
+  color: #064e3b !important;
+  box-shadow: none !important;
+}
+
+.rbc-off-range-bg {
+  background-color: #f8fafc;
+}
+
+.rbc-day-bg {
+  background-color: white;
 }

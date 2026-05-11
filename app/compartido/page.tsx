@@ -1,12 +1,20 @@
 import CalendarWrapper from '../components/CalendarWrapper';
+import Timeline from '../components/Timeline';
 import { getEvents } from '../actions/calendar';
+import { getMemories } from '../actions/timeline';
 import { holidays2026 } from '../../lib/holidays';
+import MemoryForm from '../components/MemoryForm';
 
 export const dynamic = 'force-dynamic';
 
 export default async function Page() {
-    const res = await getEvents();
-    const dbEvents = res.success && res.data ? res.data : [];
+    const [eventsRes, memoriesRes] = await Promise.all([
+        getEvents(),
+        getMemories()
+    ]);
+
+    const dbEvents = eventsRes.success && eventsRes.data ? eventsRes.data : [];
+    const memories = memoriesRes.success && memoriesRes.data ? memoriesRes.data : [];
 
     // FILTRO ESTRICTO PARA COMPARTIDO
     const mappedEvents = dbEvents
@@ -35,9 +43,32 @@ export default async function Page() {
     const allEvents = [...mappedEvents, ...formattedHolidays];
 
     return (
-        <div className="space-y-6">
-            <h1 className="text-2xl font-bold">Vista Compartida</h1>
-            <CalendarWrapper events={allEvents} />
+        // Aumentamos el espacio space-y-24 para dar mucho aire al paisaje ilustrado
+        <div className="space-y-24 pb-16 max-w-7xl mx-auto">
+
+            {/* SECCIÓN 1: TIMELINE ILLUSTRADO */}
+            {/* SECCIÓN 1: TIMELINE ILLUSTRADO */}
+            <section>
+                <h1 className="text-4xl font-storybook-serif font-bold mb-12 text-center text-emerald-950">
+                    Nuestro Camino Juntos
+                </h1>
+
+                {/* NUEVO BOTÓN DE CARGA AQUÍ */}
+                <MemoryForm />
+
+                <Timeline memories={memories} />
+            </section>
+            {/* SECCIÓN 2: CALENDARIO CLARO */}
+            <section>
+                <h2 className="text-3xl font-storybook-serif font-bold mb-8 text-emerald-950">
+                    Actividades Compartidas
+                </h2>
+                {/* El calendario ahora está enmarcados con sombra suave para que flote sobre la crema */}
+                <div className="shadow-lg rounded-xl overflow-hidden bg-white">
+                    <CalendarWrapper events={allEvents} />
+                </div>
+            </section>
+
         </div>
     );
-}
+}   

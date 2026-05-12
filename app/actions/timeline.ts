@@ -63,3 +63,17 @@ export async function uploadMemory(formData: FormData) {
         return { success: false, error: 'Error interno procesando la imagen o guardando en base de datos.' };
     }
 }
+export async function deleteMemory(id: number) {
+    try {
+        await prisma.timelineMemory.delete({
+            where: { id },
+        });
+
+        // Forzamos la recarga de la página compartida para que desaparezca
+        revalidatePath('/compartido');
+        return { success: true };
+    } catch (error) {
+        console.error("Error al borrar el recuerdo:", error);
+        return { success: false, error: 'Error interno al borrar.' };
+    }
+}

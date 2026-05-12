@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale/es';
-
+import DeleteMemoryBtn from './DeleteMemoryBtn';
 export interface Memory {
     id: number;
     imageUrl: string;
@@ -59,7 +59,7 @@ export default function Timeline({ memories }: { memories: Memory[] }) {
                             {/* Tarjeta tipo POLAROID */}
                             <div className={`w-full md:w-[45%] pl-20 md:pl-0 z-20`}>
                                 <div className={`bg-white p-4 pb-12 rounded-2xl shadow-xl border border-stone-200 transform transition-all duration-300 hover:scale-105 hover:rotate-0 hover:z-30 ${rotateClass} group`}>
-
+                                    <DeleteMemoryBtn id={memory.id} />
                                     {/* Fecha Elegante */}
                                     <p className="text-emerald-800 font-storybook-serif font-bold text-center mb-3 uppercase tracking-widest text-sm">
                                         {format(new Date(memory.memoryDate), "MMMM yyyy", { locale: es })}
